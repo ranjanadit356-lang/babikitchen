@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import ProductGrid from './components/ProductGrid';
-import Cart from './components/Cart';
-import OrderForm from './components/OrderForm';
-import Footer from './components/Footer';
-import LoadingScreen from './components/LoadingScreen';
+import Header from './components/Header.jsx';
+import Hero from './components/Hero.jsx';
+import ProductGrid from './components/ProductGrid.jsx';
+import Cart from './components/Cart.jsx';
+import OrderForm from './components/OrderForm.jsx';
+import Footer from './components/Footer.jsx';
+import LoadingScreen from './components/LoadingScreen.jsx';
 import { products, categories } from './data/products';
 
 function App() {

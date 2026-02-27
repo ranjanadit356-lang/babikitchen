@@ -5,7 +5,12 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: 'build',
-    sourcemap: true
+    sourcemap: false,
+    rollupOptions: {
+      output: {
+        manualChunks: undefined
+      }
+    }
   },
   server: {
     port: 3000,

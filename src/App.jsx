@@ -3,19 +3,32 @@ import Header from './components/Header.jsx';
 import Hero from './components/Hero.jsx';
 import ProductGrid from './components/ProductGrid.jsx';
 import Cart from './components/Cart.jsx';
-import OrderForm from './components/OrderForm.jsx';
 import Footer from './components/Footer.jsx';
 import LoadingScreen from './components/LoadingScreen.jsx';
+import Login from './components/Login.jsx';
+import AddressForm from './components/AddressForm.jsx';
+import PaymentGateway from './components/PaymentGateway.jsx';
+import OrderConfirmation from './components/OrderConfirmation.jsx';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import { products, categories } from './data/products';
 
-function App() {
+function AppContent() {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All Products');
   const [notifications, setNotifications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
+  const [checkoutStep, setCheckoutStep] = useState(null); // null, 'address', 'payment', 'confirmation'
+  const [orderData, setOrderData] = useState({});
+  const { login, isAuthenticated } = useAuth();
 
   const addToCart = (product) => {
+    if (!isAuthenticated) {
+      setShowLogin(true);
+      return;
+    }
+    
     setCart(prevCart => {
       const existingItem = prevCart.find(item => item.id === product.id);
       if (existingItem) {
@@ -74,6 +87,36 @@ function App() {
     setIsLoading(false);
   };
 
+  const handleCheckout = () => {
+    setIsCartOpen(false);
+    setCheckoutStep('address');
+  };
+
+  const handleAddressSubmit = (addressData) => {
+    setOrderData(prev => ({ ...prev, addressData }));
+    setCheckoutStep('payment');
+  };
+
+  const handlePaymentSubmit = (paymentData) => {
+    setOrderData(prev => ({ ...prev, paymentData }));
+    setCheckoutStep('confirmation');
+  };
+
+  const handleOrderComplete = () => {
+    setCart([]);
+    setCheckoutStep(null);
+    setOrderData({});
+  };
+
+  const handleBackToCart = () => {
+    setCheckoutStep(null);
+    setIsCartOpen(true);
+  };
+
+  const handleBackToAddress = () => {
+    setCheckoutStep('address');
+  };
+
   if (isLoading) {
     return <LoadingScreen onComplete={handleLoadingComplete} />;
   }
@@ -85,6 +128,7 @@ function App() {
       <Header 
         cartCount={cartCount} 
         onCartClick={() => setIsCartOpen(true)}
+        onLoginClick={() => setShowLogin(true)}
       />
       
       <Hero />
@@ -97,8 +141,6 @@ function App() {
         onAddToCart={addToCart}
       />
       
-      <OrderForm cart={cart} cartTotal={cartTotal} />
-      
       <Footer />
       
       {isCartOpen && (
@@ -108,6 +150,39 @@ function App() {
           onClose={() => setIsCartOpen(false)}
           onRemoveFromCart={removeFromCart}
           onUpdateQuantity={updateQuantity}
+          onCheckout={handleCheckout}
+        />
+      )}
+      
+      {showLogin && (
+        <Login
+          onLogin={login}
+          onClose={() => setShowLogin(false)}
+        />
+      )}
+      
+      {checkoutStep === 'address' && (
+        <AddressForm
+          onSubmit={handleAddressSubmit}
+          onBack={handleBackToCart}
+          cartTotal={cartTotal}
+        />
+      )}
+      
+      {checkoutStep === 'payment' && (
+        <PaymentGateway
+          onSubmit={handlePaymentSubmit}
+          onBack={handleBackToAddress}
+          cartTotal={cartTotal}
+          addressData={orderData.addressData}
+        />
+      )}
+      
+      {checkoutStep === 'confirmation' && (
+        <OrderConfirmation
+          orderData={orderData}
+          onClose={handleOrderComplete}
+          onContinueShopping={handleOrderComplete}
         />
       )}
       
@@ -120,6 +195,14 @@ function App() {
         </div>
       ))}
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 

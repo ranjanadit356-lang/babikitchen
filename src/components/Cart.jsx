@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Plus, Minus, Trash2, ShoppingBag, CreditCard, Truck } from 'lucide-react';
 
-const Cart = ({ cart, cartTotal, onClose, onRemoveFromCart, onUpdateQuantity }) => {
+const Cart = ({ cart, cartTotal, onClose, onRemoveFromCart, onUpdateQuantity, onCheckout }) => {
   const deliveryFee = 40;
   const finalTotal = cartTotal + deliveryFee;
 
@@ -225,6 +225,7 @@ const Cart = ({ cart, cartTotal, onClose, onRemoveFromCart, onUpdateQuantity }) 
 
               {/* Checkout Button */}
               <motion.button
+                onClick={onCheckout}
                 className="w-full py-4 rounded-xl bg-gradient-to-r from-google-blue to-google-red text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}

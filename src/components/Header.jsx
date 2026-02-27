@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, Menu, X } from 'lucide-react';
+import { ShoppingCart, Menu, X, User, LogOut } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
-const Header = ({ cartCount, onCartClick }) => {
+const Header = ({ cartCount, onCartClick, onLoginClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,25 +77,57 @@ const Header = ({ cartCount, onCartClick }) => {
               ))}
             </nav>
 
-            {/* Cart Button */}
-            <motion.button
-              onClick={onCartClick}
-              className="relative p-3 rounded-full bg-gradient-to-r from-google-blue to-google-red text-white shadow-lg hover:shadow-xl transition-all"
-              whileHover={{ scale: 1.05, rotate: 5 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ShoppingCart className="w-6 h-6" />
-              {cartCount > 0 && (
-                <motion.span
-                  className="absolute -top-1 -right-1 w-6 h-6 bg-yellow-400 text-black rounded-full text-xs font-bold flex items-center justify-center"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ type: "spring" }}
+            {/* User Actions */}
+            <div className="hidden md:flex items-center gap-4">
+              {user ? (
+                <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white text-sm font-bold">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                    <span className="text-sm font-medium text-gray-700">{user.name}</span>
+                  </div>
+                  <motion.button
+                    onClick={logout}
+                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <LogOut className="w-5 h-5 text-gray-600" />
+                  </motion.button>
+                </div>
+              ) : (
+                <motion.button
+                  onClick={onLoginClick}
+                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:from-blue-600 hover:to-purple-700 transition-all"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  {cartCount}
-                </motion.span>
+                  <User className="w-4 h-4" />
+                  <span className="text-sm font-medium">Login</span>
+                </motion.button>
               )}
-            </motion.button>
+              
+              {/* Cart Button */}
+              <motion.button
+                onClick={onCartClick}
+                className="relative p-3 rounded-full bg-gradient-to-r from-google-blue to-google-red text-white shadow-lg hover:shadow-xl transition-all"
+                whileHover={{ scale: 1.05, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ShoppingCart className="w-6 h-6" />
+                {cartCount > 0 && (
+                  <motion.span
+                    className="absolute -top-1 -right-1 w-6 h-6 bg-yellow-400 text-black rounded-full text-xs font-bold flex items-center justify-center"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: "spring" }}
+                  >
+                    {cartCount}
+                  </motion.span>
+                )}
+              </motion.button>
+            </div>
 
             {/* Mobile Menu Toggle */}
             <motion.button
@@ -144,6 +178,26 @@ const Header = ({ cartCount, onCartClick }) => {
                 </div>
                 
                 <nav className="space-y-4">
+                  {user && (
+                    <div className="pb-4 border-b border-gray-200">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold">
+                          {user.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-800">{user.name}</p>
+                          <p className="text-xs text-gray-500">{user.email}</p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={logout}
+                        className="w-full flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        <span>Logout</span>
+                      </button>
+                    </div>
+                  )}
                   {navItems.map((item) => (
                     <motion.a
                       key={item.name}
@@ -155,6 +209,20 @@ const Header = ({ cartCount, onCartClick }) => {
                       {item.name}
                     </motion.a>
                   ))}
+                  {!user && (
+                    <motion.button
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        onLoginClick();
+                      }}
+                      className="w-full flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <User className="w-4 h-4" />
+                      <span>Login</span>
+                    </motion.button>
+                  )}
                 </nav>
               </div>
             </motion.div>

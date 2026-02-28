@@ -47,7 +47,7 @@ const Menu = () => {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          className="text-center mb-12 mt-8"
         >
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Our <span className="text-gradient">Menu</span>

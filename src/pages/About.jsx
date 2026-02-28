@@ -56,7 +56,7 @@ const About = () => {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-16 mt-8"
         >
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             About <span className="text-gradient">Babita's Kitchen</span>
@@ -94,11 +94,13 @@ const About = () => {
               </p>
             </div>
             <div className="relative">
-              <img
-                src="/Images/logo.jpg"
-                alt="Babita's Kitchen"
-                className="rounded-2xl shadow-xl w-full h-96 object-cover"
-              />
+              <div className="rounded-2xl shadow-xl w-full h-96 bg-gray-100 flex items-center justify-center overflow-hidden">
+                <img
+                  src="/Images/logo.jpg"
+                  alt="Babita's Kitchen"
+                  className="w-64 h-64 object-contain"
+                />
+              </div>
               <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-xl">
                 <div className="flex items-center gap-2">
                   <Star className="w-5 h-5 fill-current" />
@@ -191,11 +193,13 @@ const About = () => {
                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all"
               >
                 <div className="flex items-center p-6">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-24 h-24 rounded-full object-cover mr-6"
-                  />
+                  <div className="w-24 h-24 rounded-full overflow-hidden mr-6 flex items-center justify-center bg-white border-2 border-gray-200">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-20 h-20 object-contain"
+                    />
+                  </div>
                   <div>
                     <h3 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h3>
                     <p className="text-blue-600 font-medium mb-2">{member.role}</p>

@@ -24,8 +24,7 @@ const Hero = () => {
 
   const features = [
     { icon: Star, text: "4.9/5 Rating", color: "text-yellow-400" },
-    { icon: Clock, text: "30 Min Delivery", color: "text-green-400" },
-    { icon: MapPin, text: "5km Radius", color: "text-blue-400" }
+    { icon: MapPin, text: "Pan India Service", color: "text-blue-400" }
   ];
 
   // Clean and minimal product showcase - Disabled for mobile
@@ -147,7 +146,7 @@ const Hero = () => {
             animate={{ scale: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 mx-auto rounded-full overflow-hidden shadow-2xl border-4 border-white/50">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 mx-auto rounded-full overflow-hidden shadow-2xl border-4 border-white/50 flex items-center justify-center">
               <motion.img
                 src="/Images/logo.jpg"
                 alt="Babita's Kitchen Logo"
@@ -214,17 +213,6 @@ const Hero = () => {
             >
               <ShoppingCart className="inline-block w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
               Order Now
-            </motion.button>
-            
-            <motion.button
-              className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-full font-semibold hover:bg-white/20 transition-all text-sm sm:text-base"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setIsPlaying(!isPlaying)}
-            >
-              <Play className="inline-block w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">Watch Story</span>
-              <span className="sm:hidden">Story</span>
             </motion.button>
           </motion.div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header.jsx';
 import Hero from './components/Hero.jsx';
 import ProductGrid from './components/ProductGrid.jsx';
@@ -9,6 +9,10 @@ import Login from './components/Login.jsx';
 import AddressForm from './components/AddressForm.jsx';
 import PaymentGateway from './components/PaymentGateway.jsx';
 import OrderConfirmation from './components/OrderConfirmation.jsx';
+import Menu from './pages/Menu.jsx';
+import Contact from './pages/Contact.jsx';
+import About from './pages/About.jsx';
+import Privacy from './pages/Privacy.jsx';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { products, categories } from './data/products';
 
@@ -21,7 +25,18 @@ function AppContent() {
   const [showLogin, setShowLogin] = useState(false);
   const [checkoutStep, setCheckoutStep] = useState(null); // null, 'address', 'payment', 'confirmation'
   const [orderData, setOrderData] = useState({});
+  const [currentPage, setCurrentPage] = useState('home'); // home, menu, about, contact, privacy
   const { login, isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    const handleAddToCart = (event) => {
+      const product = event.detail;
+      addToCart(product);
+    };
+
+    window.addEventListener('addToCart', handleAddToCart);
+    return () => window.removeEventListener('addToCart', handleAddToCart);
+  }, [isAuthenticated]);
 
   const addToCart = (product) => {
     if (!isAuthenticated) {
@@ -129,19 +144,29 @@ function AppContent() {
         cartCount={cartCount} 
         onCartClick={() => setIsCartOpen(true)}
         onLoginClick={() => setShowLogin(true)}
+        currentPage={currentPage}
+        onPageChange={setCurrentPage}
       />
       
-      <Hero />
+      {/* Render different pages based on currentPage */}
+      {currentPage === 'home' && (
+        <>
+          <Hero />
+          <ProductGrid 
+            products={filteredProducts}
+            categories={categories}
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+            onAddToCart={addToCart}
+          />
+          <Footer onPageChange={setCurrentPage} />
+        </>
+      )}
       
-      <ProductGrid 
-        products={filteredProducts}
-        categories={categories}
-        selectedCategory={selectedCategory}
-        onCategoryChange={setSelectedCategory}
-        onAddToCart={addToCart}
-      />
-      
-      <Footer />
+      {currentPage === 'menu' && <Menu />}
+      {currentPage === 'about' && <About />}
+      {currentPage === 'contact' && <Contact />}
+      {currentPage === 'privacy' && <Privacy />}
       
       {isCartOpen && (
         <Cart

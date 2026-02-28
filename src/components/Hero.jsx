@@ -28,7 +28,7 @@ const Hero = () => {
     { icon: MapPin, text: "5km Radius", color: "text-blue-400" }
   ];
 
-  // Clean and minimal product showcase
+  // Clean and minimal product showcase - Disabled for mobile
   const showcaseProducts = [
     { 
       id: 1, 
@@ -75,7 +75,7 @@ const Hero = () => {
         transition={{ duration: 8, repeat: Infinity }}
       />
 
-      {/* Clean Product Showcase - Less Clutter */}
+      {/* Clean Product Showcase - Hidden on mobile */}
       <div className="hidden lg:block">
         {showcaseProducts.map((product, index) => (
           <motion.div
@@ -142,16 +142,16 @@ const Hero = () => {
         >
           {/* Logo */}
           <motion.div
-            className="mb-6"
+            className="mb-8"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <div className="w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full overflow-hidden shadow-2xl border-4 border-white/50">
+            <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden shadow-2xl border-4 border-white/50">
               <motion.img
                 src="/Images/logo.jpg"
                 alt="Babita's Kitchen Logo"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
               />
@@ -160,18 +160,18 @@ const Hero = () => {
 
           {/* Clean Heading */}
           <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-4 leading-tight px-2"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-4 sm:mb-6 leading-tight px-2 sm:px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <span className="block drop-shadow-2xl stroke-black stroke-2">Babita's</span>
-            <span className="block text-yellow-300 font-black drop-shadow-2xl stroke-black stroke-2">Kitchen</span>
+            <span className="block drop-shadow-2xl">Babita's</span>
+            <span className="block text-yellow-300 font-black drop-shadow-2xl">Kitchen</span>
           </motion.h1>
 
           {/* Clean Subtitle */}
           <motion.p
-            className="text-base sm:text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto px-4"
+            className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-8 sm:mb-10 max-w-2xl mx-auto px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
@@ -183,7 +183,7 @@ const Hero = () => {
 
           {/* Clean Features */}
           <motion.div
-            className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 px-4"
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 sm:gap-4 mb-8 sm:mb-10 px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9 }}
@@ -202,7 +202,7 @@ const Hero = () => {
 
           {/* Clean CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 px-4"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:gap-6 justify-center mb-8 sm:mb-12 px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.1 }}

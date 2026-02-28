@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, Menu, X, User, LogOut } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
-const Header = ({ cartCount, onCartClick, onLoginClick }) => {
+const Header = ({ cartCount, onCartClick, onLoginClick, currentPage, onPageChange }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, logout } = useAuth();
@@ -17,11 +17,16 @@ const Header = ({ cartCount, onCartClick, onLoginClick }) => {
   }, []);
 
   const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'Menu', href: '#menu' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Home', href: '#home', page: 'home' },
+    { name: 'Menu', href: '#menu', page: 'menu' },
+    { name: 'About', href: '#about', page: 'about' },
+    { name: 'Contact', href: '#contact', page: 'contact' }
   ];
+
+  const handleNavClick = (page) => {
+    onPageChange(page);
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <>
@@ -62,16 +67,24 @@ const Header = ({ cartCount, onCartClick, onLoginClick }) => {
                 <motion.a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-700 hover:text-google-blue font-bold transition-colors relative group whitespace-nowrap"
+                  className={`text-gray-700 hover:text-google-blue font-bold transition-colors relative group whitespace-nowrap ${
+                    currentPage === item.page ? 'text-google-blue' : ''
+                  }`}
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ y: -2 }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.page);
+                  }}
                 >
                   {item.name}
                   <motion.div
                     className="absolute bottom-0 left-0 w-0 h-0.5 bg-google-blue group-hover:w-full"
                     transition={{ duration: 0.3 }}
+                    initial={{ width: currentPage === item.page ? '100%' : '0%' }}
+                    animate={{ width: currentPage === item.page ? '100%' : '0%' }}
                   />
                 </motion.a>
               ))}
@@ -202,8 +215,13 @@ const Header = ({ cartCount, onCartClick, onLoginClick }) => {
                     <motion.a
                       key={item.name}
                       href={item.href}
-                      className="block py-2 text-gray-700 hover:text-google-blue font-medium"
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      className={`block py-2 text-gray-700 hover:text-google-blue font-medium ${
+                        currentPage === item.page ? 'text-google-blue' : ''
+                      }`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick(item.page);
+                      }}
                       whileHover={{ x: 5 }}
                     >
                       {item.name}

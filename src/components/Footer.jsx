@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin, Clock, Heart, Star, ChefHat, Truck } from 'lucide-react';
 
-const Footer = () => {
+const Footer = ({ onPageChange }) => {
   const footerVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -31,11 +31,11 @@ const Footer = () => {
   ];
 
   const quickLinks = [
-    { name: 'About Us', href: '#about' },
-    { name: 'Our Menu', href: '#menu' },
-    { name: 'Contact', href: '#contact' },
-    { name: 'Privacy Policy', href: '#privacy' },
-    { name: 'Terms of Service', href: '#terms' }
+    { name: 'About Us', href: '#about', page: 'about' },
+    { name: 'Our Menu', href: '#menu', page: 'menu' },
+    { name: 'Contact', href: '#contact', page: 'contact' },
+    { name: 'Privacy Policy', href: '#privacy', page: 'privacy' },
+    { name: 'Terms of Service', href: '#terms', page: 'terms' }
   ];
 
   const productCategories = [
@@ -167,6 +167,12 @@ const Footer = () => {
                     href={link.href}
                     className="text-gray-300 hover:text-white transition-colors flex items-center gap-2"
                     whileHover={{ x: 5 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (link.page && onPageChange) {
+                        onPageChange(link.page);
+                      }
+                    }}
                   >
                     <span className="w-1 h-1 bg-google-blue rounded-full" />
                     {link.name}

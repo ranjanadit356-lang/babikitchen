@@ -34,25 +34,25 @@ const Hero = () => {
       id: 1, 
       image: "/Images/mango achar.avif", 
       title: "Mango Pickle",
-      position: { top: "25%", left: "8%" }
+      position: { top: "20%", left: "5%" }
     },
     { 
       id: 2, 
       image: "/Images/papad.avif", 
       title: "Crispy Papad", 
-      position: { top: "25%", right: "8%" }
+      position: { top: "20%", right: "5%" }
     },
     { 
       id: 3, 
       image: "/Images/chips.avif", 
       title: "Aloo Chips", 
-      position: { bottom: "25%", left: "8%" }
+      position: { bottom: "20%", left: "5%" }
     },
     { 
       id: 4, 
       image: "/Images/combinations of foood.avif", 
       title: "Combo Pack", 
-      position: { bottom: "25%", right: "8%" }
+      position: { bottom: "20%", right: "5%" }
     }
   ];
 
@@ -76,60 +76,62 @@ const Hero = () => {
       />
 
       {/* Clean Product Showcase - Less Clutter */}
-      {showcaseProducts.map((product, index) => (
-        <motion.div
-          key={product.id}
-          className="absolute"
-          style={{
-            top: product.position.top,
-            left: product.position.left,
-            right: product.position.right,
-            bottom: product.position.bottom
-          }}
-          initial={{ opacity: 0, scale: 0.8, y: 30 }}
-          animate={{
-            opacity: 0.7,
-            scale: 1,
-            y: 0,
-            x: mousePosition.x * 0.01
-          }}
-          transition={{
-            delay: index * 0.2,
-            duration: 0.8,
-            type: "spring",
-            stiffness: 200,
-            damping: 20
-          }}
-          whileHover={{ 
-            opacity: 1,
-            scale: 1.05,
-            zIndex: 50
-          }}
-        >
-          <div className="relative group cursor-pointer">
-            {/* Clean Product Image */}
-            <div className="w-28 h-28 md:w-32 md:h-32 rounded-xl overflow-hidden shadow-lg glass-effect border border-white/10">
-              <motion.img
-                src={product.image}
-                alt={product.title}
-                className="w-full h-full object-cover"
-                whileHover={{ scale: 1.1 }}
-                transition={{ duration: 0.3 }}
-              />
-              
-              {/* Subtle Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              
-              {/* Product Name on Hover */}
-              <div className="absolute bottom-1 left-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <p className="text-white text-xs font-bold text-center drop-shadow">
-                  {product.title}
-                </p>
+      <div className="hidden lg:block">
+        {showcaseProducts.map((product, index) => (
+          <motion.div
+            key={product.id}
+            className="absolute"
+            style={{
+              top: product.position.top,
+              left: product.position.left,
+              right: product.position.right,
+              bottom: product.position.bottom
+            }}
+            initial={{ opacity: 0, scale: 0.8, y: 30 }}
+            animate={{
+              opacity: 0.7,
+              scale: 1,
+              y: 0,
+              x: mousePosition.x * 0.01
+            }}
+            transition={{
+              delay: index * 0.2,
+              duration: 0.8,
+              type: "spring",
+              stiffness: 200,
+              damping: 20
+            }}
+            whileHover={{ 
+              opacity: 1,
+              scale: 1.05,
+              zIndex: 50
+            }}
+          >
+            <div className="relative group cursor-pointer">
+              {/* Clean Product Image */}
+              <div className="w-28 h-28 md:w-32 md:h-32 rounded-xl overflow-hidden shadow-lg glass-effect border border-white/10">
+                <motion.img
+                  src={product.image}
+                  alt={product.title}
+                  className="w-full h-full object-cover"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                />
+                
+                {/* Subtle Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                {/* Product Name on Hover */}
+                <div className="absolute bottom-1 left-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <p className="text-white text-xs font-bold text-center drop-shadow">
+                    {product.title}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        </motion.div>
-      ))}
+          </motion.div>
+        ))}
+      </div>
 
       {/* Main Content - Center Focus */}
       <div className="relative z-20 text-center px-4 max-w-4xl mx-auto">
@@ -158,7 +160,7 @@ const Hero = () => {
 
           {/* Clean Heading */}
           <motion.h1
-            className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-4 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white mb-4 leading-tight px-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
@@ -169,7 +171,7 @@ const Hero = () => {
 
           {/* Clean Subtitle */}
           <motion.p
-            className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto"
+            className="text-base sm:text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
@@ -181,7 +183,7 @@ const Hero = () => {
 
           {/* Clean Features */}
           <motion.div
-            className="flex flex-wrap justify-center gap-3 mb-8"
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-8 px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9 }}
@@ -189,38 +191,40 @@ const Hero = () => {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm"
+                className="px-3 py-2 sm:px-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs sm:text-sm"
               >
-                <feature.icon className={`w-4 h-4 inline mr-2 ${feature.color}`} />
-                {feature.text}
+                <feature.icon className={`w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2 ${feature.color}`} />
+                <span className="hidden sm:inline">{feature.text}</span>
+                <span className="sm:hidden">{feature.text.split(' ')[0]}</span>
               </div>
             ))}
           </motion.div>
 
           {/* Clean CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.1 }}
           >
             <motion.button
-              className="bg-white text-google-blue px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all"
+              className="bg-white text-google-blue px-6 py-3 sm:px-8 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all text-sm sm:text-base"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              <ShoppingCart className="inline-block w-5 h-5 mr-2" />
+              <ShoppingCart className="inline-block w-4 h-4 sm:w-5 sm:h-5 mr-2" />
               Order Now
             </motion.button>
             
             <motion.button
-              className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-8 py-3 rounded-full font-semibold hover:bg-white/20 transition-all"
+              className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-6 py-3 sm:px-8 rounded-full font-semibold hover:bg-white/20 transition-all text-sm sm:text-base"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsPlaying(!isPlaying)}
             >
-              <Play className="inline-block w-5 h-5 mr-2" />
-              Watch Story
+              <Play className="inline-block w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              <span className="hidden sm:inline">Watch Story</span>
+              <span className="sm:hidden">Story</span>
             </motion.button>
           </motion.div>
 

@@ -147,7 +147,7 @@ const Hero = () => {
             animate={{ scale: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 mx-auto rounded-full overflow-hidden shadow-2xl border-4 border-white/50">
+            <div className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 mx-auto rounded-full overflow-hidden shadow-2xl border-4 border-white/50">
               <motion.img
                 src="/Images/logo.jpg"
                 alt="Babita's Kitchen Logo"
@@ -160,7 +160,7 @@ const Hero = () => {
 
           {/* Clean Heading */}
           <motion.h1
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-4 sm:mb-6 leading-tight px-2 sm:px-4"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black text-white mb-3 sm:mb-4 leading-tight px-2 sm:px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
@@ -171,7 +171,7 @@ const Hero = () => {
 
           {/* Clean Subtitle */}
           <motion.p
-            className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-8 sm:mb-10 max-w-2xl mx-auto px-4"
+            className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-4 sm:mb-6 max-w-2xl mx-auto px-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
@@ -183,7 +183,7 @@ const Hero = () => {
 
           {/* Clean Features */}
           <motion.div
-            className="flex flex-wrap justify-center gap-2 sm:gap-3 sm:gap-4 mb-8 sm:mb-10 px-4"
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 sm:mb-8 px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9 }}
@@ -202,27 +202,27 @@ const Hero = () => {
 
           {/* Clean CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 sm:gap-6 justify-center mb-8 sm:mb-12 px-4"
+            className="flex flex-col sm:flex-row gap-2 sm:gap-3 sm:gap-4 justify-center mb-4 sm:mb-8 px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.1 }}
           >
             <motion.button
-              className="bg-white text-google-blue px-6 py-3 sm:px-8 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all text-sm sm:text-base"
+              className="bg-white text-google-blue px-4 py-2 sm:px-6 sm:py-3 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all text-sm sm:text-base"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              <ShoppingCart className="inline-block w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              <ShoppingCart className="inline-block w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
               Order Now
             </motion.button>
             
             <motion.button
-              className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-6 py-3 sm:px-8 rounded-full font-semibold hover:bg-white/20 transition-all text-sm sm:text-base"
+              className="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-full font-semibold hover:bg-white/20 transition-all text-sm sm:text-base"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsPlaying(!isPlaying)}
             >
-              <Play className="inline-block w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              <Play className="inline-block w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
               <span className="hidden sm:inline">Watch Story</span>
               <span className="sm:hidden">Story</span>
             </motion.button>

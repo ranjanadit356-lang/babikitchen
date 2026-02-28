@@ -57,12 +57,12 @@ const Header = ({ cartCount, onCartClick, onLoginClick }) => {
             </motion.div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-8 flex-1 justify-end">
+            <nav className="hidden md:flex items-center gap-6 flex-1 justify-end pr-4">
               {navItems.map((item, index) => (
                 <motion.a
                   key={item.name}
                   href={item.href}
-                  className="text-gray-700 hover:text-google-blue font-bold transition-colors relative group"
+                  className="text-gray-700 hover:text-google-blue font-bold transition-colors relative group whitespace-nowrap"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
@@ -78,7 +78,7 @@ const Header = ({ cartCount, onCartClick, onLoginClick }) => {
             </nav>
 
             {/* User Actions */}
-            <div className="hidden md:flex items-center gap-4">
+            <div className="hidden md:flex items-center gap-4 flex-shrink-0">
               {user ? (
                 <div className="flex items-center gap-3">
                   <div className="flex items-center gap-2">
